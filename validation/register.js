@@ -6,7 +6,6 @@ module.exports = function validateRegisterInput(data) {
     data.firstName = !isEmpty(data.firstName) ? data.firstName : '';
     data.lastName = !isEmpty(data.lastName) ? data.lastName : '';
     data.username = !isEmpty(data.username) ? data.username : '';
-    data.email = !isEmpty(data.email) ? data.email : '';
     data.password = !isEmpty(data.password) ? data.password : '';
     data.password_confirm = !isEmpty(data.password_confirm) ? data.password_confirm : '';
 
@@ -32,14 +31,6 @@ module.exports = function validateRegisterInput(data) {
     
     if(Validator.isEmpty(data.username)) {
         errors.username = 'Username field is required';
-    }
-
-    if(!Validator.isEmail(data.email)) {
-        errors.email = 'Email is invalid';
-    }
-
-    if(Validator.isEmpty(data.email)) {
-        errors.email = 'Email is required';
     }
 
     if(!Validator.isLength(data.password, {min: 6, max: 30})) {
