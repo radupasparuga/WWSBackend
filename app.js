@@ -1,30 +1,25 @@
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const express = require('express');
 const mongoose = require('mongoose');
-const config = require('./config');
-const database = require('./config/database')(mongoose, config);
+const bodyParser = require('body-parser');
 const passport = require('passport');
-const passportConfig = require('./config/passport')(passport);
+const config = require('./config')
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-const authRouter = require('./routes/auth')
+mongoose.connect(config.databaseURL, { useNewUrlParser: true }).then(
+    () => {console.log('Database is connected') },
+    err => { console.log('Can not connect to the database'+ err)}
+);
 
-var app = express();
+const app = express();
 
-app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
-app.use(passport.initialize());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
-app.set('toggl-clone', config.secret);
+app.get('/', function(req, res) {
+    res.send('hello');
+});
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
-app.use('/auth', authRouter);
+const PORT = process.env.PORT || 5000;
 
-module.exports = app;
+app.listen(PORT, () => {
+    console.log(`Server is running on PORT ${PORT}`);
+});
