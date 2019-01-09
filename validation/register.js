@@ -49,10 +49,6 @@ module.exports = function validateRegisterInput(data) {
         errors.password_confirm = 'Password and Confirm Password must match';
     }
 
-    if(Validator.isEmpty(data.password_confirm)) {
-        errors.password_confirm = 'Password is required';
-    }
-
     return {
         errors,
         isValid: isEmpty(errors)

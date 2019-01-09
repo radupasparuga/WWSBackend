@@ -66,13 +66,13 @@ router.post('/login', (req, res) => {
         return res.status(400).json(errors);
     }
 
-    const email = req.body.email;
+    const username = req.body.username;
     const password = req.body.password;
 
-    User.findOne({email})
+    User.findOne({username})
         .then(user => {
             if(!user) {
-                errors.email = 'User not found'
+                errors.username = 'User not found'
                 return res.status(404).json(errors);
             }
             bcrypt.compare(password, user.password)
@@ -109,7 +109,7 @@ router.get('/me', passport.authenticate('jwt', { session: false }), (req, res) =
         firstName: req.user.firstName,
         lastName: req.user.lastName,
         username: req.user.username,
-        email: req.user.email
+        username: req.user.username
     });
 });
 
