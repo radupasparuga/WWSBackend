@@ -80,8 +80,9 @@ router.post('/login', (req, res) => {
                         if(isMatch) {
                             const payload = {
                                 id: user.id,
-                                name: user.name,
-                                avatar: user.avatar
+                                firstName: user.firstName,
+                                lastName: user.lastName,
+                                username: user.username
                             }
                             jwt.sign(payload, 'secret', {
                                 expiresIn: 3600
