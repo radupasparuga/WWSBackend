@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const gravatar = require('gravatar');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const passport = require('passport');
@@ -25,17 +24,11 @@ router.post('/register', function(req, res) {
             });
         }
         else {
-            const avatar = gravatar.url(req.body.username, {
-                s: '200',
-                r: 'pg',
-                d: 'mm'
-            });
             const newUser = new User({
                 firstName: req.body.firstName,
                 lastName: req.body.lastName,
                 username: req.body.username,
                 password: req.body.password,
-                avatar
             });
             
             bcrypt.genSalt(10, (err, salt) => {
@@ -104,14 +97,16 @@ router.post('/login', (req, res) => {
         });
 });
 
-router.get('/me', passport.authenticate('jwt', { session: false }), (req, res) => {
-    return res.json({
-        id: req.user.id,
-        firstName: req.user.firstName,
-        lastName: req.user.lastName,
-        username: req.user.username,
-        username: req.user.username
+router.get('/usersList', function(req, res) {
+    User.find({}, function(err, users) {
+      var userMap = {};
+  
+      users.forEach(function(user) {
+        userMap[user._id] = {user};
+      });
+  
+      res.send(userMap);  
     });
-});
+  });
 
 module.exports = router;
