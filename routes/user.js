@@ -99,10 +99,10 @@ router.post('/login', (req, res) => {
 
 router.get('/usersList', function(req, res) {
     User.find({}, function(err, users) {
-      var userMap = {};
-  
+      let userMap = {};
+      let i = 0;
       users.forEach(function(user) {
-        userMap[user._id] = {user};
+        userMap[i++] = {user};
       });
   
       res.send(userMap);  
