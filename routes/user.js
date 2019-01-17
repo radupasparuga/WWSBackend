@@ -97,7 +97,7 @@ router.post('/login', (req, res) => {
         });
 });
 
-router.get('/usersList', function(req, res) {
+router.get('/usersList',(req, res) => {
     User.find({}, function(err, users) {
       let userMap = {};
       let i = 0;
@@ -108,5 +108,17 @@ router.get('/usersList', function(req, res) {
       res.send(userMap);  
     });
   });
+
+router.post('/userPage', (req,res) => {
+    const username = req.body.username;
+    User.findOne({username})
+        .then(user =>{
+            if(!user) {
+                return res.status(404).send("User not found");
+            }else {
+                return res.send(user)
+            }
+        })
+})
 
 module.exports = router;
