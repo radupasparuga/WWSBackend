@@ -97,6 +97,7 @@ router.post('/login', (req, res) => {
         });
 });
 
+// Route to get a list for all users (used in the dashboard component on the frontend)
 router.get('/usersList',(req, res) => {
     User.find({}, function(err, users) {
       let userMap = {};
@@ -109,6 +110,7 @@ router.get('/usersList',(req, res) => {
     });
   });
 
+// Route to get info from a user based on username (used to create profile pages on the frontend)
 router.get('/:username', (req,res) => {
     const username = req.params.username;
     User.findOne({username})
