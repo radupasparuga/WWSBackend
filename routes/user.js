@@ -109,8 +109,8 @@ router.get('/usersList',(req, res) => {
     });
   });
 
-router.post('/userPage', (req,res) => {
-    const username = req.body.username;
+router.get('/:username', (req,res) => {
+    const username = req.params.username;
     User.findOne({username})
         .then(user =>{
             if(!user) {
