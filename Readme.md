@@ -1,4 +1,4 @@
-# Backend for WorldWideStudents
+# Backend for WorldWide Students
 - done in Node.js with Express and MongoDB
 
 # Getting started
@@ -17,7 +17,7 @@ module.exports = {
 - test the backend with postman etc etc
 
 # How it works
-- in order to create a request you need to send requests on port 400
+- in order to create a request you need to send requests on port 4000
 - basic request route: `http://localhost:4000/api/users/login`
 - some of the routes are `/register`, `/login`, `usersList`
 

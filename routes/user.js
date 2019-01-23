@@ -28,6 +28,8 @@ router.post('/register', function(req, res) {
                 firstName: req.body.firstName,
                 lastName: req.body.lastName,
                 username: req.body.username,
+                country: req.body.country,
+                region: req.body.region,
                 password: req.body.password,
             });
             
