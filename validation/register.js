@@ -6,6 +6,8 @@ module.exports = function validateRegisterInput(data) {
     data.firstName = !isEmpty(data.firstName) ? data.firstName : '';
     data.lastName = !isEmpty(data.lastName) ? data.lastName : '';
     data.username = !isEmpty(data.username) ? data.username : '';
+    data.country = !isEmpty(data.country) ? data.country: '';
+    data.region = !isEmpty(data.region) ? data.region: '';
     data.password = !isEmpty(data.password) ? data.password : '';
     data.password_confirm = !isEmpty(data.password_confirm) ? data.password_confirm : '';
 
@@ -31,6 +33,14 @@ module.exports = function validateRegisterInput(data) {
     
     if(Validator.isEmpty(data.username)) {
         errors.username = 'Username field is required';
+    }
+
+    if(Validator.isEmpty(data.country)) {
+        errors.country = 'Please choose a country';
+    }
+
+    if(Validator.isEmpty(data.region)) {
+        errors.region = 'Please choose a region';
     }
 
     if(!Validator.isLength(data.password, {min: 6, max: 30})) {
