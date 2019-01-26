@@ -5,6 +5,7 @@ const jwt = require('jsonwebtoken');
 const passport = require('passport');
 const validateRegisterInput = require('../validation/register');
 const validateLoginInput = require('../validation/login');
+const fileUpload = require('express-fileupload');
 
 const User = require('../models/User');
 
@@ -15,6 +16,7 @@ router.post('/register', function(req, res) {
     if(!isValid) {
         return res.status(400).json(errors);
     }
+
     User.findOne({
         username: req.body.username
     }).then(user => {
