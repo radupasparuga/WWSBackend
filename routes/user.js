@@ -5,7 +5,6 @@ const jwt = require('jsonwebtoken');
 const passport = require('passport');
 const validateRegisterInput = require('../validation/register');
 const validateLoginInput = require('../validation/login');
-const fileUpload = require('express-fileupload');
 
 const User = require('../models/User');
 
@@ -128,5 +127,25 @@ router.get('/:username', (req,res) => {
             }
         })
 })
+
+
+// Function to upload profile file to server
+router.post('/upload', (req, res, next) => {
+    // console.log(req.files);
+    let uploadFile = req.files.file
+    const fileName = req.files.file.name
+    uploadFile.mv(
+      `../public/files/${fileName}`,
+      function (err) {
+        /*if (err) {
+          return res.status(500).send(err)
+        }*/
+  
+        res.json({
+          file: `public/${req.files.file.name}`,
+        })
+      },
+    )
+  })
 
 module.exports = router;
