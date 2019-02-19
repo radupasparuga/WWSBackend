@@ -24,7 +24,10 @@ const UserSchema = mongoose.Schema({
     password:{
       type: String,
       required: true
-    }
+    },
+    posts:[{
+      type: String
+    }]
   });
 
 const User = mongoose.model('users', UserSchema);
