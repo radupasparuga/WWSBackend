@@ -149,7 +149,7 @@ router.post('/upload', (req, res, next) => {
   })
 
 router.post('/post', (req,res,next) => {
-    console.log(req.body.post)
-    return res.send(req.body.post)
+    post = req.body.post
+    res.data = post;
 })
 module.exports = router;
