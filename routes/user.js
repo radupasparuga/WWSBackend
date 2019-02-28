@@ -158,8 +158,8 @@ router.post('/upload', (req, res, next) => {
 	)
 })
 
-router.post('/post', (req, res, next) => {
+router.post('/post', (req, next) => {
 	post = req.body.post
-	res.data = post;
+	username = req.body.username
 })
 module.exports = router;
