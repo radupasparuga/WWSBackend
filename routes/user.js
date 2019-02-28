@@ -158,8 +158,19 @@ router.post('/upload', (req, res, next) => {
 	)
 })
 
-router.post('/post', (req, next) => {
+router.post('/post', (req, res, next) => {
 	post = req.body.post
 	username = req.body.username
+	User.findOne({
+		username
+	})
+	.then(user => {
+		if (!user) {
+			return res.status(404).send("User not found");
+		} else {
+			user.posts[0] = post
+			console.log(user.posts[0])
+		}
+	})
 })
 module.exports = router;
