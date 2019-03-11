@@ -160,14 +160,12 @@ router.post('/upload', (req, res, next) => {
 
 router.post('/post', (req, res, next) => {
 	username = req.body.username
-	User.findOne({
-		username
-	})
-	.then(user => {
-		user.posts = req.body.post
-		user.postCount = 1
-		user.save()
-		console.log("POST ADDED " + user.username + " INPUT: " + user.posts)
-	})
+	User.findOneAndUpdate({"username": username}, { "$push": { posts: req.body.post } }, { new: true }, function(err, doc){ 
+		if(err) {
+			return res.status(400).send("Invalid post, please try again!")
+		} else {
+			return res.status(200).send("Post added!")
+		}
+	});
 })
 module.exports = router;
