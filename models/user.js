@@ -25,9 +25,18 @@ const UserSchema = mongoose.Schema({
       type: String,
       required: true
     },
+    postCount:{
+      type: Number
+    },
     posts:[{
       type: String
-    }]
+    }],
+    friends:[{
+      type: String
+    }],
+    friendsCount:{
+      type: Number
+    }
   });
 
 const User = mongoose.model('users', UserSchema);
