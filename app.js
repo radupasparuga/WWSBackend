@@ -6,6 +6,7 @@ const config = require('./config');
 const fileUpload = require('express-fileupload');
 
 const users = require('./routes/user'); 
+const getUser = require('./routes/getUser');
 
 mongoose.connect(config.databaseURL, { useNewUrlParser: true }).then(
     () => {console.log('Database is connected') },
@@ -20,6 +21,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.use('/api/users', users);
+app.use('/api/getUser', getUser);
 
 app.get('/', function(req, res) {
     res.send('hello');

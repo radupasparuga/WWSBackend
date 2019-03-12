@@ -123,21 +123,30 @@ router.get('/usersList', (req, res) => {
 	});
 });
 
-// Route to get info from a user based on username (used to create profile pages on the frontend)
-router.get('/:username', (req, res) => {
-	const username = req.params.username;
-	User.findOne({
-			username
-		})
-		.then(user => {
-			if (!user) {
-				return res.status(404).send("User not found");
-			} else {
-				return res.send(user)
-			}
-		})
+// Route to create a post
+router.post('/post', (req, res, next) => {
+	username = req.body.username
+	User.findOneAndUpdate({"username": username}, { "$push": { posts: req.body.post } }, { new: true }, function(err, doc){ 
+		if(err) {
+			return res.status(400).send("Invalid post, please try again!")
+		} else {
+			return res.status(200).send("Post added!")
+		}
+	});
 })
 
+// Route to get all posts from each user
+router.get('/postsList', (req, res) => {
+	console.log("I got here")
+	User.find({}, function (err, users) {
+		let posts = {}
+		users.forEach(function (user) {
+			console.log(user.username)
+			posts[user.username] = user.posts
+		})
+		res.send(posts);
+	})
+})
 
 // Function to upload profile file to server
 router.post('/upload', (req, res, next) => {
@@ -158,14 +167,5 @@ router.post('/upload', (req, res, next) => {
 	)
 })
 
-router.post('/post', (req, res, next) => {
-	username = req.body.username
-	User.findOneAndUpdate({"username": username}, { "$push": { posts: req.body.post } }, { new: true }, function(err, doc){ 
-		if(err) {
-			return res.status(400).send("Invalid post, please try again!")
-		} else {
-			return res.status(200).send("Post added!")
-		}
-	});
-})
+
 module.exports = router;
