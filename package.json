@@ -13,10 +13,13 @@
   },
   "name": "backend",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "app.js",
   "repository": "https://github.com/radupasparuga/WWSBackend.git",
   "author": "radupasparuga <radupasparuga25@gmail.com>",
   "license": "MIT",
+  "scripts": {
+    "start": "nodemon app"
+  },
   "devDependencies": {
     "eslint-config-standard": "^12.0.0",
     "eslint-config-standard-react": "^7.0.2",
