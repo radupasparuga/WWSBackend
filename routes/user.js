@@ -86,6 +86,8 @@ router.post('/login', (req, res) => {
 							firstName: user.firstName,
 							lastName: user.lastName,
 							username: user.username,
+							posts: user.posts,
+							friends: user.friends,
 							country: user.country,
 							region: user.region
 						}
