@@ -3,7 +3,6 @@ require('dotenv').config() // dontenv for the .env file
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const passport = require('passport');
-const config = require('./config');
 const fileUpload = require('express-fileupload');
 
 const users = require('./routes/user'); 
