@@ -8,7 +8,7 @@ const fileUpload = require('express-fileupload');
 const users = require('./routes/user'); 
 const getUser = require('./routes/getUser');
 
-mongoose.connect(config.databaseURL, { useNewUrlParser: true }).then(
+mongoose.connect(process.env.databaseURL, { useNewUrlParser: true }).then(
     () => {console.log('Database is connected') },
     err => { console.log('Cannot connect to the database'+ err)}
 );
