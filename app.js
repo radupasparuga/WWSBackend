@@ -1,4 +1,5 @@
 const express = require('express');
+require('dotenv').config() // dontenv for the .env file
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const passport = require('passport');
