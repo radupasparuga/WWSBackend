@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const User = require('../models/User');
+const User = require('../models/user');
 
 // Route to get info from a user based on username (used to create profile pages on the frontend)
 router.get('/:username', (req, res) => {
