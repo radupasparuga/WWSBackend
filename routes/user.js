@@ -5,6 +5,7 @@ const jwt = require('jsonwebtoken');
 const passport = require('passport');
 const validateRegisterInput = require('../validation/register');
 const validateLoginInput = require('../validation/login');
+const isEmpty = require('../validation/is-empty');
 
 const User = require('../models/user');
 
@@ -128,11 +129,15 @@ router.get('/usersList', (req, res) => {
 // Route to create a post
 router.post('/post', (req, res, next) => {
 	username = req.body.username
+	if(isEmpty(req.body.post)){
+		console.log("no post we got here")
+		return res.status(400).send("Invalid post, please try again!");
+	}
 	User.findOneAndUpdate({"username": username}, { "$push": { posts: req.body.post } }, { new: true }, function(err, doc){ 
 		if(err) {
-			return res.status(400).send("Invalid post, please try again!")
+			return res.status(400).send("Invalid post, please try again!");
 		} else {
-			return res.status(200).send("Post added!")
+			return res.status(200).send("Post added!");
 		}
 	});
 })
