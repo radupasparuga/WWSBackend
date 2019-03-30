@@ -128,10 +128,11 @@ router.get('/usersList', (req, res) => {
 
 // Route to create a post
 router.post('/post', (req, res, next) => {
+	let errors = {};
 	username = req.body.username
 	if(isEmpty(req.body.post)){
-		console.log("no post we got here")
-		return res.status(400).send("Invalid post, please try again!");
+		errors.post = "Invalid post, please try again!";
+		return res.status(400).json(errors);
 	}
 	User.findOneAndUpdate({"username": username}, { "$push": { posts: req.body.post } }, { new: true }, function(err, doc){ 
 		if(err) {
