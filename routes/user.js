@@ -153,12 +153,14 @@ router.post('/post', (req, res, next) => {
 
 // Route to get all posts from each user
 router.get('/postsList', (req, res) => {
-	console.log("I got here")
-	User.find({}, function (err, users) {
+	Post.find({}, function (err, users) {
 		let posts = {}
+		let i = 0;
 		users.forEach(function (user) {
 			console.log(user.username)
-			posts[user.username] = user.posts
+			let post = {username: user.username, post: user.post};
+			posts[i] = post
+			i++;
 		})
 		res.send(posts);
 	})
