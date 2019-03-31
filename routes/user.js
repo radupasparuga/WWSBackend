@@ -8,6 +8,7 @@ const validateLoginInput = require('../validation/login');
 const isEmpty = require('../validation/is-empty');
 
 const User = require('../models/user');
+const Post = require('../models/post');
 
 router.post('/register', function (req, res) {
 	
@@ -129,18 +130,25 @@ router.get('/usersList', (req, res) => {
 // Route to create a post
 router.post('/post', (req, res, next) => {
 	let errors = {};
-	username = req.body.username
+	username = req.body.username;
 	if(isEmpty(req.body.post)){
 		errors.post = "Invalid post, please try again!";
 		return res.status(400).json(errors);
+	} else {
+		const newPost = new Post({
+			username: req.body.username,
+			post: req.body.post
+		});
+		newPost
+			.save()
+		User.findOneAndUpdate({ "username": username }, { "$push": { posts: req.body.post } }, { new: true }, function (err, doc) {
+			if (err) {
+				return res.status(400).send("Invalid post, please try again!");
+			} else {
+				return res.status(200).send("Post added!");
+			}
+		});
 	}
-	User.findOneAndUpdate({"username": username}, { "$push": { posts: req.body.post } }, { new: true }, function(err, doc){ 
-		if(err) {
-			return res.status(400).send("Invalid post, please try again!");
-		} else {
-			return res.status(200).send("Post added!");
-		}
-	});
 })
 
 // Route to get all posts from each user
